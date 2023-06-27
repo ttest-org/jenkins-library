@@ -15,7 +15,7 @@ There are two primary ways to help:
 
 ## Using the issue tracker
 
-Use the issue tracker to suggest feature requests, report bugs, and ask questions. This is also a great way to connect with the developers of the project as well as others who are interested in this solution.
+Use the issue tracker to suggest feature requests, report bugs, and ask questions. This is also a great way to connect with the developers of the project as well as others who are interested in this solutionnn.
 
 Use the issue tracker to find ways to contribute. Find a bug or a feature, mention in the issue that you will take on that effort, then follow the "Changing the code-base" guidance below.
 
