@@ -10,8 +10,13 @@ on:
 
 jobs:
   unit:
+    # if: github.event.pull_request.head.repo.fork != true
     runs-on: ubuntu-latest
     steps:
+      - name: check if it is a fork (1)
+        run: echo ${{github.event.pull_request.head.repo.fork}}
+      - name: check event type
+        run: echo  ${{ github.event.type }}
       - uses: styfle/cancel-workflow-action@0.10.0
       - uses: actions/setup-go@v1
         with:
@@ -25,8 +30,14 @@ jobs:
             ${{ runner.os }}-golang-
       - name: checkout
         uses: actions/checkout@v2
-      - name: unit-test
-        run: echo ${{secrets.ENV_TEST}}
+      # - name: unit-test
+      # - name: read ENV_TEST
+      - id: env_test
+        env:
+          ENV_TEST: ${{ secrets.ENV_TEST }}
+        # if: env.ENV_TEST != null
+        run: echo "ENV_TTEST=${{env.ENV_TEST}}" >> "$GITHUB_OUTPUT"
+
         # uses: paambaati/codeclimate-action@v2.6.0
         # env:
           # CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
@@ -35,6 +46,15 @@ jobs:
           # coverageLocations: cover.out:gocov
           # truncate package name from file paths in report
           # prefix: github.com/SAP/jenkins-library/
+
+      - name: unit-test
+        if: steps.env_test.outputs.ENV_TTEST != null
+        run: echo ${{ steps.env_test.outputs.ENV_TTEST }}
+
+      - name: unit-test (for fork)
+        if: steps.env_test.outputs.ENV_TTEST == null
+        run: echo ${{ steps.env_test.outputs.ENV_TTEST }}
+      
   format:
     runs-on: ubuntu-latest
     steps:
