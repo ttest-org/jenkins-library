@@ -14,6 +14,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check if it is a fork (1)
+        run: echo ${{github.event.pull_request.head.repo.fork }}
+      - name: check if it is a fork (3)
+        run: echo ${{github.event.pull_request.head.repo.fork}}
+      - name: check if it is a fork (4)
+        run: echo ${{github.event.pull_request.head.repo.fork}}
+      - name: check if it is a fork (5)
+        run: echo ${{github.event.pull_request.head.repo.fork}}
+      - name: check if it is a fork (6)
         run: echo ${{github.event.pull_request.head.repo.fork}}
       - name: check event type
         run: echo  ${{ github.event.type }}
